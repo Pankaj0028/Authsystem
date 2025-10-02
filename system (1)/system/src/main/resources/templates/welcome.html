@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome - Auth System</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/welcome.css}">
+</head>
+<body>
+    <nav class="nav-bar" th:if="${user}">
+        <div class="nav-content">
+            <a href="/" class="nav-brand">AuthSystem</a>
+            <div class="nav-links">
+                <span th:text="'Welcome, ' + ${user.name} + '!'"></span>
+                <a href="/profile">Profile</a>
+                <form action="/logout" method="post" style="display: inline;">
+                    <button type="submit" class="btn btn-secondary" style="padding: 5px 15px; font-size: 14px;">Logout</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container welcome-container">
+        <div class="card welcome-card">
+            <div class="welcome-hero" th:if="${user}">
+                <h1 th:text="'Welcome back, ' + ${user.name} + '!'">Welcome back!</h1>
+                <p>You're successfully logged into your account</p>
+            </div>
+            
+            <div class="welcome-hero" th:unless="${user}">
+                <h1>Welcome to AuthSystem</h1>
+                <p>Secure authentication made simple</p>
+            </div>
+
+            <div th:if="${user}">
+                <div class="features">
+                    <div class="feature">
+                        <div class="feature-icon">👤</div>
+                        <h3>Profile Management</h3>
+                        <p>Update your personal information and preferences</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🔒</div>
+                        <h3>Secure Access</h3>
+                        <p>Your data is protected with enterprise-grade security</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">⚡</div>
+                        <h3>Fast & Reliable</h3>
+                        <p>Lightning-fast performance with 99.9% uptime</p>
+                    </div>
+                </div>
+                
+                <div class="cta-section">
+                    <h3>Ready to get started?</h3>
+                    <div class="cta-buttons">
+                        <a href="/profile" class="btn btn-primary">Manage Profile</a>
+                        <a href="#" class="btn btn-secondary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+
+            <div th:unless="${user}">
+                <div class="card-body">
+                    <div class="auth-links">
+                        <p>Please sign in to access your account</p>
+                        <div class="cta-buttons">
+                            <a href="/login" class="btn btn-primary">Login</a>
+                            <a href="/signup" class="btn btn-secondary">Create Account</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
